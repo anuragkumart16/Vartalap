@@ -1,10 +1,12 @@
 import React from 'react'
 import SmallTabNav from '../organism/SmallTabNav'
+import SmallTabBody from '../organism/SmallTabBody'
 
 function SmallTab() {
   return (
-    <div style={{height:'100vh',width:'30vw',backgroundColor:'#ffffff',borderRight:'1px solid #eae7e3'}}>
+    <div style={{height:'100vh',width:'23vw',backgroundColor:'#ffffff',borderRight:'1px solid #eae7e3',display:'flex',flexDirection:'column'}}>
       <SmallTabNav/>
+      <SmallTabBody/>
     </div>
   )
 }

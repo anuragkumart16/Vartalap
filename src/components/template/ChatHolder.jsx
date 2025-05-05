@@ -4,7 +4,7 @@ import Messageholder from '../organism/Messageholder'
 import ChatHolderFoot from '../organism/ChatHolderFoot'
 function ChatHolder() {
   return (
-    <div style={{height:'100vh',backgroundColor:'#efe9e0',width:'100%',display:'flex',flexDirection:'column'}}>
+    <div style={{height:'100vh',backgroundColor:'#efe9e0',flex:'1',display:'flex',flexDirection:'column'}}>
       <ChatHolderNav/>
       <Messageholder/>
       <ChatHolderFoot/>

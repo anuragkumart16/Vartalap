@@ -15,7 +15,7 @@ function TextArea({style}) {
               e.target.style.overflowY = 'auto';
             }
           }}
-         style={{border:'none',backgroundColor:'#ffffff',outline:'none',width:'100%',height:'1rem',maxHeight:'8rem',resize:'none',flex:'1'}}></textarea>
+         style={{border:'none',backgroundColor:'#ffffff',outline:'none',width:'100%',height:'1rem',maxHeight:'8rem',resize:'none',flex:'1',fontFamily:'Helvetica Neue'}}></textarea>
          <HiOutlineFaceSmile size={'1.2rem'}/>
     </div>
   )
