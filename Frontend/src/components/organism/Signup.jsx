@@ -91,6 +91,7 @@ function Signup({setter}) {
           }}
           onMouseEnter={() => SetBtnColor("black")}
           onMouseLeave={() => SetBtnColor("#2d2d2e")}
+          onClick={() => setter("login")}
         >
           Login
         </button>

@@ -20,8 +20,11 @@ function ChatHolderNav() {
       </div>
       <div style={{marginLeft:'auto',display:'flex',alignItems:'center',gap:'1rem'}}>
       <PiMusicNoteFill size={'1.3rem'}/>
-      <IoVideocam size={'1.3rem'}/>
-      <IoMdCall size={'1.3rem'} />
+      <IoVideocam size={'1.3rem'} onClick={ () => window.open("/videocall", "_blank", "width=800,height=600,toolbar=no,scrollbars=yes,resizable=yes")
+}/>
+      <IoMdCall size={'1.3rem'} onClick={ () => {
+  window.open("/audiocall", "_blank", "width=800,height=600,toolbar=no,scrollbars=yes,resizable=yes");
+}}/>
       <IoSearchSharp size={'1.3rem'}/>
       </div>
       </div>
