@@ -1,7 +1,7 @@
 import { User } from "../models/user.models.js";
 
 
-async function getUser(email,username) {
+async function getUser(email,username,res) {
     let user;
     if (email) {
         // checking if email is valid
@@ -15,6 +15,7 @@ async function getUser(email,username) {
 
         // getting user instance
         user = await User.findOne({ email })
+        console.log(user)
 
     } else if (username) {
         // checking if username is valid

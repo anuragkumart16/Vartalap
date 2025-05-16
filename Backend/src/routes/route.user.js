@@ -5,11 +5,11 @@ import { verifyAuthToken } from "../midddleware/auth.middleware.js";
 const userRouter = Router();
 
 userRouter.route("/register").post(registerUser)
-userRouter.route("/reset").post(sendResetPasswordEmail)
+userRouter.route("/resetpassword").post(sendResetPasswordEmail)
 userRouter.route("/verifyotp").post(verifyOTP)
 userRouter.route('/login').post(loginUser)
 userRouter.route('/verifyauth').post(verifyAuthToken,sendOK)
-userRouter.route('/resetpassword').post(resetPassword)
+userRouter.route('/updatepassword').post(resetPassword)
 
 // secured routes
 userRouter.route('/logout').post(verifyAuthToken,logoutUser)

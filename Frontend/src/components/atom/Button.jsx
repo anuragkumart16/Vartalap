@@ -34,7 +34,7 @@ function Button({
   
   return (
     <button
-      onclick={onclick}
+      onClick={onclick}
       style={type === "primary" ? PrimaryStyle : SecondaryStyle}
       type={type}
       onMouseEnter={() => setHover(true)}

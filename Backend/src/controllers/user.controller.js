@@ -42,6 +42,7 @@ const sendResetPasswordEmail = asyncHandler(async (req, res) => {
     let { email, username } = req.body;
 
 
+
     email = email?.trim();
     username = username?.trim();
 
@@ -49,7 +50,8 @@ const sendResetPasswordEmail = asyncHandler(async (req, res) => {
         return errorResponse(400, "Email or username is required!", null, res);
     }
 
-    let user = await getUser(email, username);
+    let user = await getUser(email, username,res);
+    // console.log(user)
     if (!user) {
         return errorResponse(400, `No account found with given ${email ? "email" : "username"}`, null, res);
     }
@@ -73,11 +75,7 @@ const sendResetPasswordEmail = asyncHandler(async (req, res) => {
         });
     } catch (error) {
         console.log(error);
-        return res.status(500).json({
-            success: false,
-            message:
-                "Something went wrong, while sending reset otp please try again later!",
-        });
+        return errorResponse(500, "Something went wrong, while sending reset otp please try again later!", null, res);
     }
 });
 

@@ -1,11 +1,61 @@
 import React, { useState } from "react";
 import Heading from "../atom/Heading";
 import { useNavigate } from "react-router-dom";
+import checkEmail from "../../utils/validations/checkEmail";
+import { login } from "../../utils/apicalls/user";
 
 function Login({ setter }) {
   const navigate = useNavigate()
   const [btnColor, SetBtnColor] = useState("#2d2d2e");
   const [showPassowrd, setShowPassword] = useState(false);
+  const [message,setMessage] = useState('')
+  const [status,setStatus] = useState(false)
+
+
+  function handleSubmit(e){
+    e.preventDefault()
+    console.log('function is being called!')
+    const username = e.target[0].value
+    const password = e.target[1].value
+    
+    if (checkEmail(username) === true){
+      login(null,username,password)
+      .then((data)=>{
+        if (data.success){
+          setMessage(data.message)
+          setStatus(true)
+          setTimeout(()=>{
+            navigate('/chat')
+          },2000)
+        }else{
+          setMessage(data.message)
+          setStatus(false)
+        }
+      })
+      .catch((error)=>{
+        console.log(error)
+        navigate('/error',{state:{error:'Server Error!',message:'Unable to connect to server at the moment, We are working on it, please try again later'}})
+      })
+    }else{
+      login(username,null,password)
+      .then((data)=>{
+        if (data.success){
+          setMessage(data.message)
+          setStatus(true)
+          setTimeout(()=>{
+            navigate('/chat')
+          },2000)
+        }else{
+          setMessage(data.message)
+          setStatus(false)
+        }
+      })
+      .catch((error)=>{
+        console.log(error)
+        navigate('/error',{state:{error:'Server Error!',message:'Unable to connect to server at the moment, We are working on it, please try again later'}})
+      })
+    }
+  }
   return (
     <div
       style={{
@@ -19,6 +69,7 @@ function Login({ setter }) {
     >
       <Heading>Login</Heading>
       <form
+        onSubmit={handleSubmit}
         style={{
           display: "flex",
           flexDirection: "column",
@@ -30,6 +81,17 @@ function Login({ setter }) {
           backgroundColor: "white",
         }}
       >
+        <div>
+          {
+            message && 
+              <>
+              {
+                status ? <p style={{color:'green'}}>{message}</p> : <p style={{color:'red'}}>{message}</p>
+              }
+              </>
+            
+          }
+        </div>
         <div>
           <label>Username or Email</label>
           <input
@@ -65,7 +127,7 @@ function Login({ setter }) {
             }}
           />
         </div>
-        <label onClick={()=>setter('changepassword')} style={{cursor:'pointer'}}>Forgot Password?</label>
+        <label onClick={()=>setter('requestchangepassword')} style={{cursor:'pointer'}}>Forgot Password?</label>
         <button
           style={{
             border: "none",
@@ -78,7 +140,6 @@ function Login({ setter }) {
           }}
           onMouseEnter={() => SetBtnColor("black")}
           onMouseLeave={() => SetBtnColor("#2d2d2e")}
-          onClick={() => navigate('/chat')}
         >
           Login
         </button>

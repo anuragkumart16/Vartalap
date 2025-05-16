@@ -1,6 +1,6 @@
 import React from "react";
 
-function Holderdiv({ children,flexDirection='row', height="auto", width="auto", display="flex",gap="1rem" }) {
+function Holderdiv({ children,flexDirection='column', height="auto", width="auto", display="flex",gap="1rem" }) {
   return (
     <div
       style={{

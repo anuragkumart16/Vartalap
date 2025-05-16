@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Page from "./components/template/Page";
+import Error from "./pages/Error";
 import Chat from "./pages/Chat";
 import Splash from "./pages/Splash";
 import Auth from "./pages/Auth";
@@ -17,6 +17,8 @@ function App() {
           <Route path='/auth' element={<Auth/>}/>
           <Route path='/audiocall' element={<AudioCall/>}/>
           <Route path='/videocall' element={<VideoCall/>}/>
+          <Route path='/error' element={<Error/>}/>
+          <Route path='*' element={<Error/>}/>
         </Routes>
       </Router>
     </>
