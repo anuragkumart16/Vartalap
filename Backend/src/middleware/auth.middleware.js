@@ -11,7 +11,7 @@ const verifyAuthToken = asyncHandler(async (req, res, next) => {
             });
         }
 
-        const user = await User.findById(token).select("-password -otp -resetAuth -_id");
+        const user = await User.findById(token).select("-password -otp -resetAuth");
 
         if (!user) {
             return res.status(401).json({

@@ -20,19 +20,18 @@ app.use(express.urlencoded({
   extended:true
 }))
 
-
-
 app.use(express.static('public'))
-
 app.use(cookieParser())
 
 
 // router imports 
 import {healthCheckRouter} from "./routes/route.healthcheck.js"
 import {userRouter} from "./routes/route.user.js";
+import {memberRouter} from "./routes/route.member.js"
 
 // router middlewares
 app.use('/api/v1/healthcheck', healthCheckRouter)
 app.use('/api/v1/user', userRouter)
+app.use('/api/v1/member', memberRouter)
 
 export default app
