@@ -13,8 +13,8 @@ const getMembers = asyncHandler(async (req, res) => {
         return errorResponse(400, "Parameter is required!", null, res);
     }
 
-    const usernames = await User.find({ username: { $regex: `${parameter}`, $options: "i" } }).limit(5);
-    const emails = await User.find({ email: { $regex: `${parameter}`, $options: "i" } }).limit(5);
+    const usernames = await User.find({ username: { $regex: `${parameter}`, $options: "i" } }).select("-password").limit(5);
+    const emails = await User.find({ email: { $regex: `${parameter}`, $options: "i" } }).select("-password").limit(5);
 
     if (!usernames.length && !emails.length) {
         return successResponse(200, "No members found", [], res);

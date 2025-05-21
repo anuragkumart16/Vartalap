@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Heading from "../atom/Heading";
 import { useNavigate } from "react-router-dom";
 import checkEmail from "../../utils/validations/checkEmail";
-import { login } from "../../utils/apicalls/user";
+import { login } from "../../services/user";
 
 function Login({ setter }) {
   const navigate = useNavigate()

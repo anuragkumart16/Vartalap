@@ -6,7 +6,7 @@ function SmallTab() {
   return (
     <div style={{height:'100vh',width:'23vw',backgroundColor:'#ffffff',borderRight:'1px solid #eae7e3',display:'flex',flexDirection:'column'}}>
       <SmallTabNav/>
-      <SmallTabBody/>
+      <SmallTabBody emptyMessage='Start a conversation'/>
     </div>
   )
 }

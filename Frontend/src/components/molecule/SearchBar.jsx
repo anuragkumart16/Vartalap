@@ -1,6 +1,6 @@
 import React from "react";
 import Input from "../atom/Input";
-function SearchBar() {
+function SearchBar({changeHandler,reference}) {
   return (
     <div
       style={{
@@ -10,13 +10,14 @@ function SearchBar() {
         padding: "0.15rem 0.25rem",
         display: "flex",
         alignItems: "center",
+        width: "100%",
       }}
     >
       <img
         src="icon/Search Glyph.svg"
         style={{ height: "14px", width: "auto" }}
       />
-      <Input placeholder="Search" />
+    <Input placeholder="Search" reference={reference} onchange={(e)=>changeHandler(e.target.value)} />
     </div>
   );
 }

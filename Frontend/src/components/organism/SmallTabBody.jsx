@@ -1,18 +1,14 @@
 import React from 'react'
 import PeopleCard from '../molecule/PeopleCard'
 
-function SmallTabBody() {
+function SmallTabBody({list=[],style,emptyMessage='No Users Found',handleClick}) {
   return (
-    <div style={{display:'flex',flexDirection:'column',flex:1,padding:'0rem 1rem'}}>
-      <PeopleCard/>
-      <PeopleCard/>
-      <PeopleCard/>
-      <PeopleCard/>
-      <PeopleCard/>
-      <PeopleCard/>
-      <PeopleCard/>
-      <PeopleCard/>
-      <PeopleCard/>
+    <div style={{display:'flex',flexDirection:'column',flex:1,padding:'0rem 1rem',overflowY:'scroll',...style}}>
+      {
+        list.map((item,index)=><PeopleCard key={index} name={item.username} subtext={item.email} id={item._id} imgurl={item.imgURL} handleClick={handleClick}/>)
+      }{
+        list.length == 0 && <p style={{textAlign:'center',fontSize:'1.2rem',color:'#8c8d8d'}}>{emptyMessage}</p>
+      }
     </div>
   )
 }

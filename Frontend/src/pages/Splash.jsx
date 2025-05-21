@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { healthCheck } from '../utils/apicalls/healthcheck'
-import { verifyAuth } from '../utils/apicalls/user'
+import { healthCheck } from '../services/healthcheck'
+import { verifyAuth } from '../services/user'
 function Splash() {
   const navigate = useNavigate()
 

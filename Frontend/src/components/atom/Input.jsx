@@ -1,9 +1,11 @@
 import React from "react";
 
-function Input({ type = "text", width = "100%",placeholder="", name="" }) {
+function Input({ type = "text", width = "100%",placeholder="", name="" ,onchange,reference}) {
   return (
     <input
       type={type}
+      onChange={onchange}
+      ref={reference}
       style={{
         width: width,
         padding: "0.25rem 0.25rem",

@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import Login from '../components/organism/Login'
-import Signup from '../components/organism/Signup'
-import ChangePassword from '../components/organism/ChangePassword'
-import RequestPasswordChange from '../components/organism/RequestPasswordChange'
-import OTP from '../components/organism/OTP'
+import Login from './../components/auth-components/Login'
+import Signup from './../components/auth-components/Signup'
+import ChangePassword from './../components/auth-components/ChangePassword'
+import RequestPasswordChange from './../components/auth-components/RequestPasswordChange'
+import OTP from '../components/auth-components/OTP'
 
 
 function Auth() {

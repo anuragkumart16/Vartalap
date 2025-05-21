@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Heading from "../atom/Heading";
-import { verifyOTP } from "../../utils/apicalls/user";
+import { verifyOTP } from "../../services/user";
 
 function OTP({ setter }) {
 

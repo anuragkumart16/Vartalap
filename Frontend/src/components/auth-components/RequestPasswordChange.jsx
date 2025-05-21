@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Heading from "../atom/Heading";
-import { resetPassword } from "../../utils/apicalls/user";
+import { resetPassword } from "../../services/user";
 import { useNavigate } from "react-router-dom";
 
 function RequestPasswordChange({ setter }) {

@@ -1,6 +1,6 @@
 import React from "react";
 
-function Holderdiv({ children,flexDirection='column', height="auto", width="auto", display="flex",gap="1rem" }) {
+function Holderdiv({ children,flexDirection='column', height="auto", width="auto", display="flex",gap="1rem",style }) {
   return (
     <div
       style={{
@@ -16,7 +16,8 @@ function Holderdiv({ children,flexDirection='column', height="auto", width="auto
         width: width,
         fontSize:'1.2rem',
         fontFamily:'Helvetica Neue',
-        gap:gap
+        gap:gap,
+        ...style
       }}
     >
         {children}
