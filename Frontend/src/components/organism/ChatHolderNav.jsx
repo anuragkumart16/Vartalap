@@ -8,7 +8,7 @@ import { PiMusicNoteFill } from "react-icons/pi";
 import { ChatContext } from "../../context/ChatContext";
 
 function ChatHolderNav({ name, message, calloptions = true, imageURl }) {
-  const { chatName } = useContext(ChatContext);
+  const { chatName, chatEmail, chatProfilePicture } = useContext(ChatContext);
 
   return (
     <div
@@ -23,9 +23,9 @@ function ChatHolderNav({ name, message, calloptions = true, imageURl }) {
       }}
     >
       <div style={{ display: "flex", alignItems: "center" }}>
-        {imageURl ? (
+        {(imageURl || chatProfilePicture) ? (
           <img
-            src={imageURl}
+            src={imageURl || chatProfilePicture}
             style={{
               height: "2rem",
               marginRight: "0.5rem",
@@ -37,7 +37,7 @@ function ChatHolderNav({ name, message, calloptions = true, imageURl }) {
         )}
         <div>
           <Text>{name || chatName || "Loading..."}</Text>
-          <SmallText>{message  || "Loading..."}</SmallText>
+          <SmallText>{message || chatEmail || "Loading..."}</SmallText>
         </div>
       </div>
 

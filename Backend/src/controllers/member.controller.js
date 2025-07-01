@@ -199,6 +199,19 @@ const getFriendRequests = asyncHandler(async (req, res) => {
   );
 });
 
+const getFriends = asyncHandler(async (req, res) => {
+  // req.user is set by verifyAuthToken middleware
+  const user = await User.findById(req.user._id);
+  if (!user) {
+    return errorResponse(404, 'User not found', null, res);
+  }
+  let friendsList = [];
+  if (user.friends && user.friends.length > 0) {
+    friendsList = await User.find({ _id: { $in: user.friends } }).select('username email profilePicture');
+  }
+  return successResponse(200, 'Friends fetched successfully', friendsList, res);
+});
+
 export {
   getMembers,
   requestMember,
@@ -206,4 +219,5 @@ export {
   acceptRequest,
   rejectRequest,
   getFriendRequests,
+  getFriends,
 };

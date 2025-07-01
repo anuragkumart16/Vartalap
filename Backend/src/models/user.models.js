@@ -36,7 +36,12 @@ const userSchema = new Schema(
       type: Array,
       default: [],
       trim: true
-    }
+    },
+    profilePicture: {
+      type: String,
+      default: '',
+      trim: true
+    },
   },
   { timestamps: true }
 );

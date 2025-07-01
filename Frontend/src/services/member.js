@@ -68,3 +68,21 @@ export async function rejectFriendRequest(requestId) {
         throw new Error(error);
     }
 }
+
+export async function getFriends() {
+    try {
+        const response = await fetch(`${url}/api/v1/member/friends`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: 'include',
+        });
+        const data = await response.json();
+        console.log(data)
+        return data;
+    } catch (error) {
+        console.log(error);
+        throw new Error(error);
+    }
+}

@@ -7,6 +7,7 @@ function SmallTabBody({
   emptyMessage = "No Users Found",
   handleClick,
 }) {
+  console.log(list)
   return (
     <div
       style={{
@@ -21,10 +22,10 @@ function SmallTabBody({
       {list.map((item, index) => (
         <PeopleCard
           key={index}
-          name={item.username}
-          subtext={item.email}
+          name={item.username || 'Loading...'}
+          subtext={item.email || 'Loading...'}
           id={item._id}
-          imgurl={item.imgURL}
+          imgurl={item.profilePicture}
           handleClick={handleClick}
         />
       ))}
