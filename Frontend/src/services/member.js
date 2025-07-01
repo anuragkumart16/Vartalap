@@ -15,3 +15,56 @@ export async function getMembers(parameter) {
         throw new Error(error);
     }
 }
+
+export async function getFriendRequests() {
+    try {
+        const response = await fetch(`${url}/api/v1/member/requests`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: 'include',
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.log(error);
+        throw new Error(error);
+    }
+}
+
+export async function acceptFriendRequest(requestId) {
+    try {
+        const response = await fetch(`${url}/api/v1/member/accept`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: 'include',
+            body: JSON.stringify({ requestId }),
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.log(error);
+        throw new Error(error);
+    }
+}
+
+export async function rejectFriendRequest(requestId) {
+    try {
+        const response = await fetch(`${url}/api/v1/member/reject`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: 'include',
+            body: JSON.stringify({ requestId }),
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.log(error);
+        throw new Error(error);
+    }
+}
