@@ -3,9 +3,6 @@ import GetMember from "../organism/FriendsGetMember";
 
 
 function Friends() {
-
-
-
   return (
     <div
       style={{

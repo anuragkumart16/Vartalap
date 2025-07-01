@@ -13,16 +13,25 @@ const getMembers = asyncHandler(async (req, res) => {
         return errorResponse(400, "Parameter is required!", null, res);
     }
 
-    const usernames = await User.find({ username: { $regex: `${parameter}`, $options: "i" } }).select("-password").limit(5);
-    const emails = await User.find({ email: { $regex: `${parameter}`, $options: "i" } }).select("-password").limit(5);
+    const members = await User.find({
+        $or: [
+            { username: { $regex: `${parameter}`, $options: "i" } },
+            { email: { $regex: `${parameter}`, $options: "i" } }
+        ]
+    }).select("-password -resetAuth -otp").limit(10);
 
-    if (!usernames.length && !emails.length) {
+    if (!members.length) {
         return successResponse(200, "No members found", [], res);
     }
 
-    return successResponse(200, "Members fetched successfully", [...usernames, ...emails], res);
+    return successResponse(200, "Members fetched successfully", [...members], res);
 });
 
+
+
+/*
+    this function enables us to send a friend request to user
+*/
 const requestMember = asyncHandler(async (req, res) => {
     const { id,message } = req.body;
 

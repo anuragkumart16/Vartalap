@@ -5,7 +5,8 @@ import Splash from "./pages/Splash";
 import Auth from "./pages/Auth";
 import AudioCall from "./pages/AudioCall";
 import VideoCall from "./pages/VideoCall";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path='*' element={<Error/>}/>
         </Routes>
       </Router>
+      <ToastContainer />
     </>
   );
 }

@@ -5,6 +5,7 @@ function Button({
   onclick = () => {},
   type = "primary",
   width = "auto",
+  style = {},
 }) {
   const [hover, setHover] = useState(false);
 
@@ -18,6 +19,7 @@ function Button({
     fontSize: "1.1rem",
     cursor: "pointer",
     userSelect: "none",
+    ...style,
   };
 
   const SecondaryStyle = {
@@ -30,6 +32,7 @@ function Button({
     fontSize: "1.1rem",
     cursor: "pointer",
     userSelect: "none",
+    ...style,
   };
   
   return (
