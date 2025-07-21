@@ -1,37 +1,97 @@
-import React, { useState } from 'react'
-import ChatHolderNav from '../organism/ChatHolderNav'
-import Messageholder from '../organism/Messageholder'
-import ChatHolderFoot from '../organism/ChatHolderFoot'
-
-const initialMessages = [
-  { id: 1, text: 'Hey! How are you?', fromMe: false, time: '09:00' },
-  { id: 2, text: 'I am good, how about you?', fromMe: true, time: '09:01' },
-  { id: 3, text: 'Doing well! Working on the chat app.', fromMe: false, time: '09:02' },
-  { id: 4, text: 'That sounds awesome!', fromMe: true, time: '09:03' },
-  { id: 5, text: 'Let me know if you need any help.', fromMe: false, time: '09:04' },
-  { id: 6, text: 'Sure, will do. Thanks!', fromMe: true, time: '09:05' },
-];
+import React, { useState, useEffect, useContext, useRef } from 'react';
+import ChatHolderNav from '../organism/ChatHolderNav';
+import Messageholder from '../organism/Messageholder';
+import ChatHolderFoot from '../organism/ChatHolderFoot';
+import { chatSocket } from '../../utils/socket';
+import { getMessagesWithUser } from '../../services/member';
+import { ChatContext } from '../../context/ChatContext';
+import { AuthContext } from '../../context/AuthContext';
 
 function ChatHolder() {
-  const [messages, setMessages] = useState(initialMessages);
+  const { chatId } = useContext(ChatContext); // recipient user id
+  const { userId } = useContext(AuthContext); // current user id
+  const [messages, setMessages] = useState([]);
+  const messagesEndRef = useRef(null);
 
+  // Join own room on mount
+  useEffect(() => {
+    if (userId) {
+      console.log('[Socket] Emitting join with userId:', userId);
+      chatSocket.emit('join', userId);
+    }
+  }, [userId]);
+
+  // Fetch previous messages when chatId changes
+  useEffect(() => {
+    // Clear messages immediately when chatId changes
+    setMessages([]);
+    if (!chatId) return;
+    getMessagesWithUser(chatId)
+      .then((data) => {
+        if (data.success && Array.isArray(data.data)) {
+          setMessages(
+            data.data.map((msg) => ({
+              id: msg._id,
+              text: msg.message,
+              fromMe: msg.senderId === userId,
+              time: new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            }))
+          );
+        } else {
+          setMessages([]);
+        }
+      })
+      .catch(() => setMessages([]));
+  }, [chatId, userId]);
+
+  // Listen for incoming messages
+  useEffect(() => {
+    const handler = (msg) => {
+      console.log('[Socket] Incoming message:', msg, 'Current chatId:', chatId);
+      if (msg && chatId && msg.from === chatId) {
+        setMessages((prev) => ([
+          ...prev,
+          {
+            id: Date.now(),
+            text: msg.message,
+            fromMe: false,
+            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          }
+        ]));
+      }
+    };
+    chatSocket.on('message', handler);
+    return () => chatSocket.off('message', handler);
+  }, [chatId]);
+
+  // Scroll to bottom on new message
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages]);
+
+  // Send message
   const sendMessage = (text) => {
-    if (!text.trim()) return;
+    console.log('[SendMessage] text:', text, 'chatId:', chatId, 'userId:', userId);
+    if (!text.trim() || !chatId || !userId) return;
     const now = new Date();
     const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     setMessages(prev => ([
       ...prev,
-      { id: prev.length + 1, text, fromMe: true, time }
+      { id: Date.now(), text, fromMe: true, time }
     ]));
+    chatSocket.emit('message', { to: chatId, message: text, from: userId });
   };
 
   return (
     <div style={{height:'100vh',backgroundColor:'#ececec',flex:'1',display:'flex',flexDirection:'column'}}>
       <ChatHolderNav/>
       <Messageholder messages={messages}/>
+      <div ref={messagesEndRef} />
       <ChatHolderFoot onSend={sendMessage}/>
     </div>
-  )
+  );
 }
 
-export default ChatHolder
+export default ChatHolder;

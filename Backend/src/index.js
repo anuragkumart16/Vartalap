@@ -3,6 +3,7 @@ import connectDb from "./db/index.js";
 import app from "./app.js"
 import http from "http"
 import { Server } from "socket.io"
+import { socketHandler } from "./socket.js";
 
 dotenv.config({
     path: './.env'
@@ -16,6 +17,9 @@ export const io = new Server(server, {
         credentials: true
     }
 })
+
+// Register socket handlers
+socketHandler(io);
 
 connectDb()
 .then(()=>{

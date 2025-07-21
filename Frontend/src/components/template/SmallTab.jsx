@@ -11,7 +11,8 @@ function SmallTab() {
   return (
     <div style={{height:'100vh',width:'23vw',backgroundColor:'#ffffff',borderRight:'1px solid #eae7e3',display:'flex',flexDirection:'column'}}>
       {tab != 'friends' && <SmallTabNav/>}
-      {tab == 'startscreen' && <SmallTabBody emptyMessage='Start a conversation'/>}
+      {tab == 'startscreen' &&  <FriendsList />}
+      {/* {tab == 'startscreen' && <SmallTabBody emptyMessage='Start a conversation'/>} */}
       {tab == 'chat' && <FriendsList />}
       {tab == 'friends' && <FriendRequests />}
     </div>

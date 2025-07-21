@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Heading from "../atom/Heading";
 import { useNavigate } from "react-router-dom";
 import checkEmail from "../../utils/validations/checkEmail";
 import { login } from "../../services/user";
+import { AuthContext } from "../../context/AuthContext";
 
 function Login({ setter }) {
   const navigate = useNavigate()
@@ -10,7 +11,7 @@ function Login({ setter }) {
   const [showPassowrd, setShowPassword] = useState(false);
   const [message,setMessage] = useState('')
   const [status,setStatus] = useState(false)
-
+  const { setUserId } = useContext(AuthContext);
 
   function handleSubmit(e){
     e.preventDefault()
@@ -22,6 +23,7 @@ function Login({ setter }) {
       login(null,username,password)
       .then((data)=>{
         if (data.success){
+          setUserId(data.data._id); // Set userId after login
           setMessage(data.message)
           setStatus(true)
           setTimeout(()=>{
@@ -40,6 +42,7 @@ function Login({ setter }) {
       login(username,null,password)
       .then((data)=>{
         if (data.success){
+          setUserId(data.data._id); // Set userId after login
           setMessage(data.message)
           setStatus(true)
           setTimeout(()=>{

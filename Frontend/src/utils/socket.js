@@ -9,4 +9,8 @@ const friendSocket = io(`${import.meta.env.VITE_URL}/friend`, {
   withCredentials: true
 });
 
-export { memberSocket , friendSocket } 
+const chatSocket = io(`${import.meta.env.VITE_URL}/chat`, {
+  withCredentials: true
+});
+
+export { memberSocket, friendSocket, chatSocket }; 

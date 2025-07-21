@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { getMembers, requestMember, rejectRequest, acceptRequest, deleteRequest, getFriendRequests, getFriends } from "../controllers/member.controller.js";
 import { verifyAuthToken } from "../middleware/auth.middleware.js";
+import { getMessagesBetweenUsers } from '../controllers/message.controller.js';
 
 const memberRouter = Router()
 
@@ -11,5 +12,6 @@ memberRouter.route('/accept').put(verifyAuthToken,acceptRequest)
 memberRouter.route('/reject').put(verifyAuthToken,rejectRequest)
 memberRouter.route('/requests').get(verifyAuthToken,getFriendRequests)
 memberRouter.route('/friends').get(verifyAuthToken, getFriends)
+memberRouter.route('/messages/:otherUserId').get(verifyAuthToken, getMessagesBetweenUsers);
 
 export { memberRouter }
