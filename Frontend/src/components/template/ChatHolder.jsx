@@ -87,8 +87,7 @@ function ChatHolder() {
   return (
     <div style={{height:'100vh',backgroundColor:'#ececec',flex:'1',display:'flex',flexDirection:'column'}}>
       <ChatHolderNav/>
-      <Messageholder messages={messages}/>
-      <div ref={messagesEndRef} />
+      <Messageholder messages={messages} messagesEndRef={messagesEndRef}/>
       <ChatHolderFoot onSend={sendMessage}/>
     </div>
   );

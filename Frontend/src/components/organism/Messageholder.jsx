@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Messageholder({style, messages = []}) {
+function Messageholder({style, messages = [], messagesEndRef}) {
   return (
     <div style={{...style, flex:1, backgroundColor:'#fcf5eb', padding:'1.5rem 0.5rem', overflowY:'auto', display:'flex', flexDirection:'column', gap:'0.5rem'}}>
       {messages.map(msg => (
@@ -31,6 +31,7 @@ function Messageholder({style, messages = []}) {
           }}>{msg.time}</span>
         </div>
       ))}
+      <div ref={messagesEndRef} />
     </div>
   )
 }
